@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://chumvamtk07i3"]
+
+[ext_resource type="Texture2D" uid="uid://cjq1bhm3bkmxf" path="res://assets/sprites/slime_green.png" id="1_484t2"]
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_i2y1w"]
+[ext_resource type="PackedScene" uid="uid://ia0h1l1tymjo" path="res://scenes/killzone.tscn" id="2_s2emj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcxes"]
+atlas = ExtResource("1_484t2")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ta4nt"]
+atlas = ExtResource("1_484t2")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rk3yb"]
+atlas = ExtResource("1_484t2")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eck3y"]
+atlas = ExtResource("1_484t2")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dfdxd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcxes")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ta4nt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rk3yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eck3y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wciyx"]
+size = Vector2(14, 15)
+
+[node name="Slime" type="Node2D"]
+script = ExtResource("1_i2y1w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_dfdxd")
+autoplay = "default"
+frame_progress = 0.104543
+
+[node name="Killzone" parent="AnimatedSprite2D" instance=ExtResource("2_s2emj")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Killzone"]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_wciyx")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 7)
+target_position = Vector2(9, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 7)
+target_position = Vector2(-9, 0)
